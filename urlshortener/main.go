@@ -29,7 +29,7 @@ func main() {
 
 	createShortURLHandler()
 	fmt.Println("hi it's coming here after short url handler")
-	r.Get("/short/{key}", redirectHandler)
+	r.Get("/{key}", redirectHandler)
 
 	// fmt.Println("hi it's coming here after redirect url handler")
 	http.ListenAndServe(":3000", r)
@@ -38,13 +38,13 @@ func main() {
 func createShortURLHandler() {
 
 	fmt.Println("coming to create short url handler function")
-	u := "http://google.com"
+	u := "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2F"
 
 	//generate key
-	key := "1"
+	key := "fb"
 
 	//insert key
-	insertMapping(key, u)
+	insertMapping(key , u)
 
 }
 
