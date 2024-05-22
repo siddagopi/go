@@ -16,7 +16,7 @@ func main() {
 	fmt.Println("time limit 10 sec")
 	flag.Parse()
 
-	file, err := os.Open(*csvfile) //here 
+	file, err := os.Open(*csvfile) 
 	if err != nil {   //if error is not nil it will exit 
 		exit(fmt.Sprint("failed to open csv: %s\n", *csvfile))
 	} //if error is nill it continues the program excution
