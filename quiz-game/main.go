@@ -11,15 +11,16 @@ import (
 )
 
 func main() {
-	csvfile := flag.String("csv", "problems.csv", "a csv file is in format of q/a type")
-	timelimit:=flag.Int("limit",30,"the time limit for quiz")
+	csvfile := flag.String("csv", "problems.csv", "a csv file is in format of q/a type") //initializing csvfile
+	timelimit:=flag.Int("limit",10,"the time limit for quiz")
+	fmt.Println("time limit 10 sec")
 	flag.Parse()
 
-	file, err := os.Open(*csvfile)
-	if err != nil {
+	file, err := os.Open(*csvfile) //here 
+	if err != nil {   //if error is not nil it will exit 
 		exit(fmt.Sprint("failed to open csv: %s\n", *csvfile))
-	}
-	r :=csv.NewReader(file)
+	} //if error is nill it continues the program excution
+	r :=csv.NewReader(file) 
 	lines,err := r.ReadAll()
 	if err !=nil{
 		exit("failed to parse the provided csv file.")
@@ -27,16 +28,16 @@ func main() {
 	
 	problems :=parseline(lines)
 
-	timer := time.NewTimer(time.Duration(*timelimit) *time.Second)
+	timer := time.NewTimer(time.Duration(*timelimit) *time.Second) //time limit in game
 	
 	correct := 0
-	for i,p:= range problems{
-		fmt.Printf("problem #%d: %s = \n", i+1,p.question)
+	for a,p:= range problems{
+		fmt.Printf("problem #%d: %s = \n", a+1,p.question) // p is initializing as problem 
 		answerch:=make(chan string)
 		go func() {
 			var answer string
 			fmt.Scanf("%s\n",&answer)
-			answerch<- answer
+			answerch<- answer //assign a value to a variable through channel
 		}()
 		select {
 		case <-timer.C:
@@ -44,7 +45,7 @@ func main() {
 			return
 		case answer := <-answerch:
 			if answer == p.answer{
-				correct++
+				correct++ //if coorect answer given by user it 
 			}
 		}
 	}
@@ -59,9 +60,9 @@ func parseline(lines [][]string) []problem {
 			answer: strings.TrimSpace(lines[1]),
 		}
 	}
-	return returns
+	return returns //return the value to returns(variable)
 }
-type problem struct {
+type problem struct { 
 	question string
 	answer string
 }
